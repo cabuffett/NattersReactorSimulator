@@ -6,6 +6,7 @@
 #include <QSlider>
 #include <QDoubleSpinBox>
 #include <QTimer>
+#include <QPushButton>
 
 #include "reactor.h" // Assuming reactorcore.h contains the ReactorCore class definition
 
@@ -26,6 +27,7 @@ public:
         powerLabel = new QLabel("Power Level: 0.0 MW");
         coolantInLabel = new QLabel("Coolant Inlet Temp: 0.0 K");
         coolantOutLabel = new QLabel("Coolant Outlet Temp: 0.0 K");
+        QPushButton *startupButton = new QPushButton("Startup Ignition")
 
         controlRodSlider = new QSlider(Qt::Horizontal);
         controlRodSlider->setRange(0, 100); // Representing 0% to 100% insertion
@@ -45,6 +47,7 @@ public:
         layout->addWidget(controlRodSlider);
         layout->addWidget(coolantInLabelEdit);
         layout->addWidget(coolantInSpinBox);
+        layout->addWidget(startupButton);
 
         timer = new QTimer(this);
         connect(timer, &QTimer::timeout, this, &ReactorWindow::updateSimulation);
@@ -52,6 +55,7 @@ public:
 
         connect(controlRodSlider, &QSlider::valueChanged, this, &ReactorWindow::onControlRodChanged);
         connect(coolantInSpinBox, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &ReactorWindow::onCoolantInletChanged);
+        connect(startupButton, &QPushButton::clicked, this, &ReactorCore::setReactorStartupStatus);
 
         updateLabels();
     }
