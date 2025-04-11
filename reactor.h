@@ -12,16 +12,17 @@ public:
     double heatTransferCoefficient; // W/(m^2.K)
     double surfaceArea; // m^2
     double powerLevel; // MW
-    bool scramReq = false
+    bool scramReq = false;
+    bool loopStarted;
 
     ReactorCore(double initialFlux = 1.0, double initialTemp = 300.0, double rodPos = 0.5, double coolantIn = 290.0, double hc = 1e6, double htc = 1e4, double sa = 100.0)
         : neutronFlux(initialFlux), reactorTemperature(initialTemp), controlRodInsertion(rodPos), coolantInletTemperature(coolantIn), coolantOutletTemperature(coolantIn),
           heatCapacity(hc), heatTransferCoefficient(htc), surfaceArea(sa), powerLevel(0.0) {}
 
-    void update(double deltaTime, bool loopStarted) {
+    void update(double deltaTime) {
         // check if startup has not commenced:
         if (loopStarted == false) {
-            
+            return cout << "The loop has not started yet... Please start the reactor."
         } else {
              
         // Simplified reactivity model:
@@ -62,5 +63,12 @@ public:
 
     void setCoolantInletTemperature(double temp) {
         coolantInletTemperature = temp;
+    }
+    void setReactorStartupStatus() {
+        if scramReq == true {
+            cout << "Reactor is currently in SCRAM!"
+        } else {
+         loopStarted == true
+        }
     }
 };
