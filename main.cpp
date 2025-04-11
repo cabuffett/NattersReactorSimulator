@@ -7,7 +7,7 @@
 #include <QDoubleSpinBox>
 #include <QTimer>
 
-#include "reactorcore.h" // Assuming reactorcore.h contains the ReactorCore class definition
+#include "reactor.h" // Assuming reactorcore.h contains the ReactorCore class definition
 
 class ReactorWindow : public QMainWindow {
     Q_OBJECT
@@ -71,7 +71,7 @@ private slots:
     void onCoolantInletChanged(double temp) {
         reactor.setCoolantInletTemperature(temp);
     }
-
+    
 private:
     ReactorCore reactor;
     QWidget* centralWidget;
